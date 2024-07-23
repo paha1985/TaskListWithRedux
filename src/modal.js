@@ -21,8 +21,6 @@ const Modal = () => {
 		dispatch({ type: 'CHANGE_TITLE', payload: target.value });
 	};
 
-	console.log(curTodoTitle);
-
 	return (
 		<div
 			className={active ? 'modal active' : 'modal'}
@@ -38,8 +36,7 @@ const Modal = () => {
 						<button onClick={DeleteTodo}>Удалить</button>
 						<button
 							onClick={() => {
-								dispatch({ type: 'MODAL_ACTIVE', payload: false });
-								dispatch({ type: 'DELETING', payload: false });
+								dispatch({ type: 'MODAL_CANCEL' });
 							}}
 						>
 							Закрыть
@@ -56,8 +53,7 @@ const Modal = () => {
 							<button onClick={UpdateTodo}>Сохранить</button>
 							<button
 								onClick={() => {
-									dispatch({ type: 'MODAL_ACTIVE', payload: false });
-									dispatch({ type: 'UPDATING', payload: false });
+									dispatch({ type: 'MODAL_CANCEL' });
 								}}
 							>
 								Закрыть

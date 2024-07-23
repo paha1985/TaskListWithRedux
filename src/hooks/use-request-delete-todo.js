@@ -14,7 +14,7 @@ export const useDeleteTodo = () => {
 				dispatch({ type: 'REFRESH', payload: !refresh });
 				dispatch({ type: 'MODAL_ACTIVE', payload: false });
 			})
-			.finally(dispatch({ type: 'DELETING', payload: false }));
+			.finally(dispatch({ type: 'DELETING', payload: { isDeleting: false } }));
 	};
 
 	return DeleteTodo;

@@ -7,11 +7,18 @@ export const initialState = {
 	curTodoTitle: null,
 	curTodoId: null,
 	refreshing: false,
+	todos: {},
 };
 
 export const reducer = (state = initialState, action) => {
 	const { type, payload } = action;
 	switch (type) {
+		case 'GET_DATA':
+			return {
+				...state,
+				todos: payload,
+			};
+
 		case 'CREATING':
 			return {
 				...state,
@@ -44,6 +51,9 @@ export const reducer = (state = initialState, action) => {
 
 		case 'MODAL_ACTIVE':
 			return { ...state, modalActive: payload };
+
+		case 'MODAL_CANCEL':
+			return { ...state, isUpdating: false, isDeleting: false, modalActive: false };
 
 		case 'CHANGE_TITLE':
 			return { ...state, curTodoTitle: payload };
