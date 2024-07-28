@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './app.module.css';
-import Modal from './modal.js';
-import { useTodoManager } from './hooks/index.js';
+import Modal from './modal.jsx';
+import { useTodoManager } from './hooks/index.jsx';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteTodoAction, updateTodoAction } from './actions/index.jsx';
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -50,30 +51,14 @@ export const App = () => {
 							{title}
 							<button
 								onClick={() => {
-									dispatch({
-										type: 'UPDATING',
-										payload: {
-											isUpdating: true,
-											id: id,
-											modalActive: true,
-											title: title,
-										},
-									});
+									dispatch(updateTodoAction(id, title));
 								}}
 							>
 								Редактировать
 							</button>
 							<button
 								onClick={() => {
-									dispatch({
-										type: 'DELETING',
-										payload: {
-											isDeleting: true,
-											id: id,
-											modalActive: true,
-											title: title,
-										},
-									});
+									dispatch(deleteTodoAction(id));
 								}}
 							>
 								Удалить

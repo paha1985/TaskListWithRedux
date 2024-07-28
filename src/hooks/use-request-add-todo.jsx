@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { refreshing } from '../selectors';
+import { createOK } from '../actions';
 
 export const useAddTodo = (newTodo, setNewTodo) => {
-	const refresh = useSelector((state) => state.refreshing);
+	const refresh = useSelector(refreshing);
 	const dispatch = useDispatch();
 
 	const AddTodo = () => {
@@ -18,10 +20,10 @@ export const useAddTodo = (newTodo, setNewTodo) => {
 			.then((rawResponce) => rawResponce.json())
 			.then((responce) => {
 				console.log('Запись добавлена', responce);
-				dispatch({ type: 'REFRESH', payload: !refresh });
+				dispatch(refreshing(!refresh));
 				setNewTodo('');
 			})
-			.finally(dispatch({ type: 'CREATING', payload: true }));
+			.finally(dispatch(createOK));
 	};
 
 	return { AddTodo };

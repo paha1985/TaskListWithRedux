@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { refreshing, curTodoTitle, curTodoId } from '../selectors';
+import { updateOK, modalActiveAction, refreshTodoAction } from '../actions';
 
 export const useUpdateTodo = () => {
 	const dispatch = useDispatch();
-	const id = useSelector((state) => state.curTodoId);
-	const title = useSelector((state) => state.curTodoTitle);
-	const refresh = useSelector((state) => state.refreshing);
+	const id = useSelector(curTodoId);
+	const title = useSelector(curTodoTitle);
+	const refresh = useSelector(refreshing);
 
 	const UpdateTodo = () => {
 		fetch(`http://localhost:3305/todos/${id}`, {
@@ -19,10 +21,10 @@ export const useUpdateTodo = () => {
 			.then((rawResponce) => rawResponce.json())
 			.then((responce) => {
 				console.log('Запись отредактирована', responce);
-				dispatch({ type: 'REFRESH', payload: !refresh });
-				dispatch({ type: 'MODAL_ACTIVE', payload: false });
+				dispatch(refreshTodoAction(!refresh));
+				dispatch(modalActiveAction(false));
 			})
-			.finally(dispatch({ type: 'UPDATING', payload: false }));
+			.finally(dispatch(updateOK));
 	};
 
 	return UpdateTodo;

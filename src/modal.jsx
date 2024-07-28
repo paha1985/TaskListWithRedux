@@ -1,30 +1,28 @@
-import React, { useContext } from 'react';
 import './Modal.css';
-import { AppContext } from './context';
 import { useDeleteTodo, useUpdateTodo } from './hooks/index';
 import { useDispatch, useSelector } from 'react-redux';
+import { curTodoTitle, modalActive } from './selectors';
+import { modalActiveAction, modalCancel, changeTitle } from './actions';
 
 const Modal = () => {
-	const { refreshTodos } = useContext(AppContext);
-
 	const dispatch = useDispatch();
 
 	const isDeleting = useSelector((state) => state.isDeleting);
-	const active = useSelector((state) => state.modalActive);
-	const curTodoTitle = useSelector((state) => state.curTodoTitle);
+	const active = useSelector(modalActive);
+	const todoTitle = useSelector(curTodoTitle);
 
-	const DeleteTodo = useDeleteTodo(refreshTodos);
+	const DeleteTodo = useDeleteTodo();
 
-	const UpdateTodo = useUpdateTodo(refreshTodos);
+	const UpdateTodo = useUpdateTodo();
 
 	const setUpdatedTodoChange = ({ target }) => {
-		dispatch({ type: 'CHANGE_TITLE', payload: target.value });
+		dispatch(changeTitle(target.value));
 	};
 
 	return (
 		<div
 			className={active ? 'modal active' : 'modal'}
-			onClick={() => dispatch({ type: 'MODAL_ACTIVE', payload: false })}
+			onClick={() => dispatch(modalActiveAction(false))}
 		>
 			<div
 				className={active ? 'modal__content active' : 'modal__content'}
@@ -36,7 +34,7 @@ const Modal = () => {
 						<button onClick={DeleteTodo}>Удалить</button>
 						<button
 							onClick={() => {
-								dispatch({ type: 'MODAL_CANCEL' });
+								dispatch(modalCancel);
 							}}
 						>
 							Закрыть
@@ -46,14 +44,14 @@ const Modal = () => {
 					<div>
 						<input
 							type="text"
-							value={curTodoTitle}
+							value={todoTitle}
 							onChange={setUpdatedTodoChange}
 						/>
 						<div>
 							<button onClick={UpdateTodo}>Сохранить</button>
 							<button
 								onClick={() => {
-									dispatch({ type: 'MODAL_CANCEL' });
+									dispatch(modalCancel);
 								}}
 							>
 								Закрыть

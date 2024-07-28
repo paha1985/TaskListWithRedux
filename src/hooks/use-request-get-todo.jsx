@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTodos } from '../actions/getDataAction';
+import { loading, refreshing } from '../selectors';
+import { loadTodoAction } from '../actions';
 
 export const useGetTodo = (sorted, search) => {
 	const [todos, setTodos] = useState([]);
 	const dispatch = useDispatch();
-	const refresh = useSelector((state) => state.refreshing);
-	const isLoading = useSelector((state) => state.isLoading);
+	const refresh = useSelector(refreshing);
+	const isLoading = useSelector(loading);
 	const todos1 = useSelector((state) => state.todos);
 
 	useEffect(() => {
-		dispatch({ type: 'LOADING', payload: true });
+		dispatch(loadTodoAction(true));
 		dispatch(getTodos());
 		let filteredTodos = [];
 		fetch('http://localhost:3305/todos')
@@ -35,8 +37,9 @@ export const useGetTodo = (sorted, search) => {
 					);
 				}
 			})
-			.finally(() => dispatch({ type: 'LOADING', payload: false }));
+			.finally(() => dispatch(loadTodoAction(false)));
 	}, [refresh]);
-	console.log(todos1);
+	//console.log('todos1', todos1);
+	console.log(todos);
 	return { isLoading, todos };
 };

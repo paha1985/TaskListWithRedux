@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { curTodoId, refreshing } from '../selectors';
+import { modalActiveAction, deleteOK } from '../actions';
 
 export const useDeleteTodo = () => {
 	const dispatch = useDispatch();
-	const id = useSelector((state) => state.curTodoId);
-	const refresh = useSelector((state) => state.refreshing);
+	const id = useSelector(curTodoId);
+	const refresh = useSelector(refreshing);
 	const DeleteTodo = () => {
 		fetch(`http://localhost:3305/todos/${id}`, {
 			method: 'DELETE',
@@ -11,10 +13,10 @@ export const useDeleteTodo = () => {
 			.then((rawResponce) => rawResponce.json())
 			.then((responce) => {
 				console.log('Запись удалена', responce);
-				dispatch({ type: 'REFRESH', payload: !refresh });
-				dispatch({ type: 'MODAL_ACTIVE', payload: false });
+				dispatch(refreshing(!refresh));
+				dispatch(modalActiveAction(false));
 			})
-			.finally(dispatch({ type: 'DELETING', payload: { isDeleting: false } }));
+			.finally(dispatch(deleteOK));
 	};
 
 	return DeleteTodo;
