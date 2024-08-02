@@ -7,7 +7,7 @@ import { modalActiveAction, modalCancel, changeTitle } from './actions';
 const Modal = () => {
 	const dispatch = useDispatch();
 
-	const isDeleting = useSelector((state) => state.isDeleting);
+	const isDeleting = useSelector((state) => state.crudState.isDeleting);
 	const active = useSelector(modalActive);
 	const todoTitle = useSelector(curTodoTitle);
 
@@ -34,7 +34,8 @@ const Modal = () => {
 						<button onClick={DeleteTodo}>Удалить</button>
 						<button
 							onClick={() => {
-								dispatch(modalCancel);
+								dispatch(modalActiveAction(false));
+								//dispatch(modalCancel);
 							}}
 						>
 							Закрыть
@@ -51,7 +52,8 @@ const Modal = () => {
 							<button onClick={UpdateTodo}>Сохранить</button>
 							<button
 								onClick={() => {
-									dispatch(modalCancel);
+									dispatch(modalActiveAction(false));
+									//dispatch(modalCancel);
 								}}
 							>
 								Закрыть

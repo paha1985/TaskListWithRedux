@@ -1,1 +1,1 @@
-export const loading = (state) => state.loading;
+export const loading = (state) => state.crudState.loading;

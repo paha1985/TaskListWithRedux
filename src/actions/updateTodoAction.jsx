@@ -3,7 +3,7 @@ export const updateTodoAction = (id, title) => ({
 	payload: {
 		isUpdating: true,
 		id: id,
-		modalActive: true,
+		//modalActive: true,
 		title: title,
 	},
 });

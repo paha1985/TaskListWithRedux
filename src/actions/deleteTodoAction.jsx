@@ -3,6 +3,5 @@ export const deleteTodoAction = (id) => ({
 	payload: {
 		isDeleting: true,
 		id: id,
-		modalActive: true,
 	},
 });

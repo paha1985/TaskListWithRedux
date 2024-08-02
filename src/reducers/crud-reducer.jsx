@@ -1,5 +1,5 @@
-export const initialState = {
-	active: false,
+export const initialCrudState = {
+	// active: false,
 	isDeleting: false,
 	isUpdating: false,
 	isCreating: false,
@@ -10,7 +10,7 @@ export const initialState = {
 	todos: {},
 };
 
-export const reducer = (state = initialState, action) => {
+export const crudReducer = (state = initialCrudState, action) => {
 	const { type, payload } = action;
 	switch (type) {
 		case 'GET_DATA':
@@ -36,7 +36,7 @@ export const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				isDeleting: payload.isDeleting,
-				modalActive: payload.modalActive,
+				//modalActive: payload.modalActive,
 				curTodoId: payload.id,
 			};
 
@@ -46,14 +46,14 @@ export const reducer = (state = initialState, action) => {
 				isUpdating: payload.isUpdating,
 				curTodoId: payload.id,
 				curTodoTitle: payload.title,
-				modalActive: payload.modalActive,
+				//modalActive: payload.modalActive,
 			};
 
-		case 'MODAL_ACTIVE':
-			return { ...state, modalActive: payload };
+		// case 'MODAL_ACTIVE':
+		// 	return { ...state, modalActive: payload };
 
-		case 'MODAL_CANCEL':
-			return { ...state, isUpdating: false, isDeleting: false, modalActive: false };
+		// case 'MODAL_CANCEL':
+		// 	return { ...state, isUpdating: false, isDeleting: false, modalActive: false };
 
 		case 'CHANGE_TITLE':
 			return { ...state, curTodoTitle: payload };

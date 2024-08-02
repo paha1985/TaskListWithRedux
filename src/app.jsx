@@ -3,7 +3,12 @@ import styles from './app.module.css';
 import Modal from './modal.jsx';
 import { useTodoManager } from './hooks/index.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTodoAction, updateTodoAction } from './actions/index.jsx';
+import {
+	deleteTodoAction,
+	modalActiveAction,
+	updateTodoAction,
+} from './actions/index.jsx';
+import { modalActive } from './selectors/modalActive.jsx';
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -52,6 +57,7 @@ export const App = () => {
 							<button
 								onClick={() => {
 									dispatch(updateTodoAction(id, title));
+									dispatch(modalActiveAction(true));
 								}}
 							>
 								Редактировать
@@ -59,6 +65,7 @@ export const App = () => {
 							<button
 								onClick={() => {
 									dispatch(deleteTodoAction(id));
+									dispatch(modalActiveAction(true));
 								}}
 							>
 								Удалить

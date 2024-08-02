@@ -1,1 +1,1 @@
-export const curTodoTitle = (state) => state.curTodoTitle;
+export const curTodoTitle = (state) => state.crudState.curTodoTitle;

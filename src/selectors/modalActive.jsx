@@ -1,1 +1,1 @@
-export const modalActive = (state) => state.modalActive;
+export const modalActive = (state) => state.modalState.modalActive;
